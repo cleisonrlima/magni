@@ -1,0 +1,93 @@
+<h4 class="mt-4">{{tittle}}</h4>
+<div class="col-md-auto">
+  <button (click)="new()" type="submit" class="btn btn-success">
+    <i-bs name="person-plus-fill" width="20" height="20">
+    </i-bs>
+    Adicionar Novo Professor</button>
+</div>
+<hr>
+<!-- <ul>
+    <li *ngFor="let student of students">{{student.name}}</li>
+</ul> -->
+
+<div *ngIf="selectedTeacher ">
+  <div *ngFor="let alert of alerts">
+    <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
+  </div>
+
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <h6 class="border-bottom pb-2 mb-0">Id: {{selectedTeacher.id}}</h6>
+   
+    <form [formGroup]="teacherForm" (submit)="save()">
+      <div class="mb-3  mt-3">
+        <label for="name" class="form-label">Nome</label>
+        <input type="text" class="form-control" formControlName="name" id="name">
+      </div>
+
+      <div class="mb-3  mt-3">
+        <label for="birthDate" class="form-label">Data Nascimento</label>
+        <input type="text" class="form-control" formControlName="birthDate" id="birthDate">
+      </div>
+
+      <div class="mb-3  mt-3">
+        <label for="salaryAmount" class="form-label">Salário</label>
+        <input type="text" class="form-control" formControlName="salaryAmount" id="salaryAmount">
+      </div>
+      
+      <div class="row paper">
+        <div class="col-md-auto">
+          <button (click)="back()" class="btn btn-secondary">
+            <i-bs name="arrow-left-circle-fill" width="20" height="20">
+            </i-bs>
+            Voltar</button>
+        </div>
+        <div class="col-md-auto">
+          <button type="submit" class="btn btn-success" [disabled]="!teacherForm.valid">
+            <i-bs name="save" width="20" height="20">
+            </i-bs>
+            Salvar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+
+</div>
+
+<div *ngIf="!selectedTeacher">
+ 
+  
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Data de nascimento</th>
+          <th scope="col">Salário</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let teacher of teachers">
+          <th scope="row" click="alert('shush')">{{teacher.id}}</th>
+          <td>{{teacher.name}}</td>
+          <td>{{teacher.birthDate}}</td>
+          <td>{{teacher.salaryAmount}}</td>
+          <td>
+            <button (click)="handleTeacher(teacher)" class="btn btn-primary me-2"><i-bs name="pencil-square" width="20"
+                height="20">
+              </i-bs>
+            </button>
+          <td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+</div>
+

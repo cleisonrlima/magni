@@ -1,0 +1,139 @@
+<h4 class="mt-4">{{tittle}}</h4>
+<div class="col-md-auto">
+  <button (click)="new()" type="submit" class="btn btn-success">
+    <i-bs name="person-plus-fill" width="20" height="20">
+    </i-bs>
+    Adicionar Novo Aluno</button>
+</div>
+<hr>
+<!-- <ul>
+    <li *ngFor="let student of students">{{student.name}}</li>
+</ul> -->
+
+<div *ngIf="selectedStudent && !showGrades">
+  <div *ngFor="let alert of alerts">
+    <alert [type]="alert.type"><span [innerHtml]="alert.msg"></span></alert>
+  </div>
+
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <h6 class="border-bottom pb-2 mb-0">Id: {{selectedStudent.id}}</h6>
+   
+    <form [formGroup]="studentForm" (submit)="save()">
+      <div class="mb-3  mt-3">
+        <label for="exampleInputEmail1" class="form-label">Nome</label>
+        <input type="text" class="form-control" formControlName="name" id="name">
+      </div>
+      <div class="mb-3">
+        <label for="registrationNumber" class="form-label">Matricula</label>
+        <input type="text" class="form-control" formControlName="registrationNumber" id="registrationNumber">
+      </div>
+      <div class="mb-3">
+        <label for="registrationNumber" class="form-label">Data Nascimento</label>
+        <input type="text" mask="99/99/9999" class="form-control" formControlName="birthDate" id="birthDate">
+      </div>
+      <div class="mb-3">
+        <label for="course" class="form-label">Curso</label>
+        <select class="form-control" name="course" id="course" formControlName="courseId">
+          <option *ngFor="let course of courses" [value]="course.id">{{course.name}}</option>
+        </select>
+      </div>
+      <div class="row paper">
+        <div class="col-md-auto">
+          <button (click)="back()" class="btn btn-secondary">
+            <i-bs name="arrow-left-circle-fill" width="20" height="20">
+            </i-bs>
+            Voltar</button>
+        </div>
+        <div class="col-md-auto">
+          <button type="submit" class="btn btn-success" [disabled]="!studentForm.valid">
+            <i-bs name="save" width="20" height="20">
+            </i-bs>
+            Salvar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+
+</div>
+
+<div *ngIf="!selectedStudent">
+ 
+  
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Matricula</th>
+          <th scope="col">Dt. Nascimento</th>
+          <th scope="col">Curso</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <th scope="row" click="alert('shush')">{{student.id}}</th>
+          <td>{{student.name}}</td>
+          <td>{{student.registrationNumber}}</td>
+          <td>{{student.birthDate}}</td>
+          <td>{{student.course.name}}</td>
+          <td>
+            <button (click)="handleStudent(student)" class="btn btn-primary me-2"><i-bs name="pencil-square" width="20"
+                height="20">
+              </i-bs>
+            </button>
+
+            <button (click)="handleShowGrades(student)" class=" btn btn-warning">
+              <i-bs name="list-check" width="20" height="20">
+              </i-bs>
+              Notas</button>
+          <td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+</div>
+
+
+<div *ngIf="selectedStudent && showGrades">
+
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <h6 class="border-bottom pb-2 mb-0">{{selectedStudent.name}} - {{selectedStudent.course.name}}</h6>
+    <div class="d-flex text-muted pt-3">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Disciplina</th>
+            <th scope="col">Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let grade of selectedStudent?.grades">
+            <th scope="row" click="alert('shush')">{{grade.discipline.name}}</th>
+            <td>{{grade.score}}</td>
+          </tr>
+        </tbody>
+      </table>
+     
+    </div>
+    
+    <div class="row paper">
+      <div class="col-md-auto">
+        <button (click)="back()" class="btn btn-secondary">
+          <i-bs name="arrow-left-circle-fill" width="20" height="20">
+          </i-bs>
+          Voltar</button>
+      </div>
+    
+    </div>
+  </div>
+
+
+</div>
